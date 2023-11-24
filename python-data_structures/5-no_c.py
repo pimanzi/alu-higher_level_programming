@@ -7,3 +7,16 @@ def no_c(my_string):
         copy_string = copy_string + my_string[i]
     my_string = copy_string
     return my_string
+
+# or you can this method for simplification
+#!/usr/bin/python3
+
+def no_c(my_string):
+    return my_string.replace('C', '').replace('c', '')
+
+# Example usage:
+original_string = "Hello, World! Python is cool."
+result = no_c(original_string)
+print(result)
+
+
