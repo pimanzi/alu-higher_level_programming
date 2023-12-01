@@ -1,18 +1,26 @@
 #!/usr/bin/python3
-'''Module 8-json_api.py'''
+"""send letter"""
 import requests
 import sys
-if __name__ == "__main__":
-    if len(sys.argv) < 2:
-        r = ""
-    else:
-        r = sys.argv[1]
-    response = requests.post('http://0.0.0.0:5000/search_user', data={'q': r})
+
+if __name__ == '__main__':
     try:
-        json = response.json()
-        if json:
-            print("[{}] {}".format(json.get('id'), json.get('name')))
-        else:
-            print("No result")
-    except ValueError:
+        lett = sys.argv[1]
+    except IndexError:
+        lett = ""
+    response = requests.post(
+        "http://0.0.0.0:5000/search_user",
+        data={"q": lett}
+    )
+    try:
+        json_response = response.json()
+        if response.headers.get("Content-Type") == 'application/json':
+            if len(json_response) > 0:
+                print("[{}] {}".format(
+                    json_response["id"],
+                    json_response["name"])
+                )
+            else:
+                print("No result")
+    except:
         print("Not a valid JSON")
