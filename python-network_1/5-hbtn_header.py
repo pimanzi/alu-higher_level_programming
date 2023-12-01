@@ -1,13 +1,7 @@
 #!/usr/bin/python3
-"""take a url and display the values"""
-
-
+'''Module 5-hbtn_header.py'''
 import requests
 import sys
-
-
 if __name__ == "__main__":
-    """display the contents"""
-    url = sys.argv[1]
-    response = requests.get(url)
-    print("{}".format(response.headers.get('X-Request-Id')))
+    html = requests.get(sys.argv[1])
+    print(html.headers.get('X-Request-Id'))
