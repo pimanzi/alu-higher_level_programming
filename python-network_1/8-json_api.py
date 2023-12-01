@@ -1,26 +1,21 @@
 #!/usr/bin/python3
-"""send letter"""
-import requests
-import sys
+"""Python scrip that takes in a letter and send POST request"""
 
-if __name__ == '__main__':
+
+import requests
+from sys import argv
+
+
+if __name__ == "__main__":
+    q = argv[1] if len(argv) == 2 else ""
+    url = 'http://0.0.0.0:5000/search_user'
+    r = requests.post(url, data={'q': q})
     try:
-        lett = sys.argv[1]
-    except IndexError:
-        lett = ""
-    response = requests.post(
-        "http://0.0.0.0:5000/search_user",
-        data={"q": lett}
-    )
-    try:
-        json_response = response.json()
-        if response.headers.get("Content-Type") == 'application/json':
-            if len(json_response) > 0:
-                print("[{}] {}".format(
-                    json_response["id"],
-                    json_response["name"])
-                )
-            else:
-                print("No result")
+        r_dict = r.json()
+        id, name = r_dict.get('id'), r_dict.get('name')
+        if len(r_dict) == 0 or not id or not name:
+            print("No result")
+        else:
+            print("[{}] {}".format(r_dict.get('id'), r_dict.get('name')))
     except:
         print("Not a valid JSON")
