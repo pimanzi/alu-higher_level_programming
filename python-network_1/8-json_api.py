@@ -1,21 +1,18 @@
 #!/usr/bin/python3
-"""Python scrip that takes in a letter and send POST request"""
-
-
+'''Module 8-json_api.py'''
 import requests
-from sys import argv
-
-
+import sys
 if __name__ == "__main__":
-    q = argv[1] if len(argv) == 2 else ""
-    url = 'http://0.0.0.0:5000/search_user'
-    r = requests.post(url, data={'q': q})
+    if len(sys.argv) < 2:
+        r = ""
+    else:
+        r = sys.argv[1]
+    response = requests.post('http://0.0.0.0:5000/search_user', data={'q': r})
     try:
-        r_dict = r.json()
-        id, name = r_dict.get('id'), r_dict.get('name')
-        if len(r_dict) == 0 or not id or not name:
-            print("No result")
+        json = response.json()
+        if json:
+            print("[{}] {}".format(json.get('id'), json.get('name')))
         else:
-            print("[{}] {}".format(r_dict.get('id'), r_dict.get('name')))
-    except:
+            print("No result")
+    except ValueError:
         print("Not a valid JSON")
