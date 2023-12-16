@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Define text-identation function Below."""
+"""Define a text-identation module."""
 
 
 def text_indentation(text):
@@ -7,17 +7,17 @@ def text_indentation(text):
     if not isinstance(text, str):
         raise TypeError("text must be a string")
 
-    yy = 0
-    while yy < len(text) and text[yy] == ' ':
-        yy += 1
+    b = 0
+    while b < len(text) and text[b] == ' ':
+        b += 1
 
-    while yy < len(text):
-        print(text[yy], end="")
-        if text[yy] == "\n" or text[yy] in ".?:":
-            if text[yy] in ".?:":
+    while b < len(text):
+        print(text[b], end="")
+        if text[b] == "\n" or text[b] in ".?:":
+            if text[b] in ".?:":
                 print("\n")
-            yy += 1
-            while yy < len(text) and text[yy] == ' ':
-                yy += 1
+            b += 1
+            while b < len(text) and text[b] == ' ':
+                b += 1
             continue
-        yy += 1
+        b += 1
